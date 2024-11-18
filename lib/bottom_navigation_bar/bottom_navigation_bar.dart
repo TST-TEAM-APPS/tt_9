@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tt_9/main_view/main_fill_page.dart';
+import 'package:tt_9/styles/app_theme.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar({super.key});
@@ -31,7 +32,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
             child: Container(
               key: _navBarKey, // Установили ключ
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 8, 36, 97),
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(32),
               ),
               child: Padding(
@@ -40,17 +41,17 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     _NavBarItem(
-                      icon: Icons.home,
+                      icon: Icons.home_outlined,
                       isActive: _currentIndex == 0,
                       onTap: () => _onItemTapped(0),
                     ),
                     _NavBarItem(
-                      icon: Icons.file_copy,
+                      icon: Icons.file_copy_outlined,
                       isActive: _currentIndex == 1,
                       onTap: () => _onItemTapped(1),
                     ),
                     _NavBarItem(
-                      icon: Icons.settings,
+                      icon: Icons.settings_outlined,
                       isActive: _currentIndex == 2,
                       onTap: () => _onItemTapped(2),
                     ),
@@ -106,7 +107,7 @@ class _NavBarItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Icon(
               icon,
-              color: isActive ? Colors.green : Colors.grey,
+              color: isActive ? AppTheme.primary : Colors.grey,
               size: 28,
             ),
           ),

@@ -34,10 +34,10 @@ class AppTheme {
 
   // Цветовые стили
   static const Color background = Color.fromARGB(255, 26, 23, 36);
-  static const Color primary = Color(0xFFD32F2F);
+  static const Color primary = Color(0xffFF5D67);
   static const Color onPrimary = Color(0xFFFFFFFF);
-  static const Color secondary = Color(0xFF9E9E9E);
-  static const Color surface = Color.fromRGBO(61, 60, 70, 0.2);
+  static const Color secondary = Color(0xFFDFDEE4);
+  static const Color surface = Color.fromRGBO(51, 50, 59, 0.404);
   static const Color surface2 = Color(0xFF3C3C3E);
   static const Color menu = Color(0xFF4A4A4C);
   static const Color gradient = Color(0xFF1A237E);

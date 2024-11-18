@@ -23,7 +23,7 @@ class MainApp extends StatelessWidget {
         fontFamily: 'SFProText',
       ),
       debugShowCheckedModeBanner: false,
-      home: CustomNavigationBar(),
+      home: const CustomNavigationBar(),
     );
   }
 }

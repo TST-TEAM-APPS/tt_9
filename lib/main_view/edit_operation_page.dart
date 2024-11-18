@@ -1,31 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hive/hive.dart';
-import 'package:intl/intl.dart';
-import 'package:pull_down_button/pull_down_button.dart';
-import 'package:tt_9/bottom_navigation_bar/bottom_navigation_bar.dart';
-import 'package:tt_9/const/subjects.dart';
 import 'package:tt_9/data/operation.dart';
 import 'package:tt_9/styles/app_theme.dart';
+import 'package:tt_9/const/subjects.dart';
+import 'package:pull_down_button/pull_down_button.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
-class AddNewOperationPage extends StatefulWidget {
-  const AddNewOperationPage({super.key});
+class EditOperationPage extends StatefulWidget {
+  final Operation operation;
+
+  const EditOperationPage({Key? key, required this.operation})
+      : super(key: key);
 
   @override
-  State<AddNewOperationPage> createState() => _AddNewOperationPageState();
+  _EditOperationPageState createState() => _EditOperationPageState();
 }
 
-class _AddNewOperationPageState extends State<AddNewOperationPage> {
+class _EditOperationPageState extends State<EditOperationPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _objectiveController = TextEditingController();
-  final TextEditingController _subjectController = TextEditingController();
-  final TextEditingController _topicController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
+  late TextEditingController _objectiveController;
+  late TextEditingController _subjectController;
+  late TextEditingController _topicController;
+  late TextEditingController _descriptionController;
 
   DateTime? _selectedDate;
   int _level = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _objectiveController =
+        TextEditingController(text: widget.operation.objective);
+    _subjectController = TextEditingController(text: widget.operation.subject);
+    _topicController = TextEditingController(text: widget.operation.topic);
+    _descriptionController =
+        TextEditingController(text: widget.operation.description);
+    _selectedDate = widget.operation.date;
+    _level = widget.operation.level;
+  }
 
   @override
   void dispose() {
@@ -39,49 +53,42 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
   void _saveOperation() async {
     if (_formKey.currentState!.validate()) {
       if (_selectedDate == null) {
-        // Если дата не выбрана, показать сообщение об ошибке
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Please select a date')),
         );
         return;
       }
 
-      final operation = Operation(
-        objective: _objectiveController.text,
-        subject: _subjectController.text,
-        topic: _topicController.text,
-        date: _selectedDate!, // Безопасно использовать !, так как уже проверили
-        level: _level,
-        description: _descriptionController.text,
-      );
+      // Обновляем данные операции
+      widget.operation.objective = _objectiveController.text;
+      widget.operation.subject = _subjectController.text;
+      widget.operation.topic = _topicController.text;
+      widget.operation.date = _selectedDate!;
+      widget.operation.level = _level;
+      widget.operation.description = _descriptionController.text;
 
-      final operationBox = Hive.box<Operation>('operations');
-      await operationBox.add(operation);
+      await widget.operation.save();
 
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => CustomNavigationBar()));
+      Navigator.pop(context, true); // Возвращаемся с результатом true
     }
   }
 
   Future<void> _pickDate() async {
-    // Используем CupertinoDatePicker внутри модального нижнего листа
     showModalBottomSheet(
       context: context,
       builder: (BuildContext builder) {
         return Container(
           height: 250,
-          color: AppTheme.background, // Фон соответствующий теме
+          color: AppTheme.background,
           child: Column(
             children: [
               SizedBox(
                 height: 190,
                 child: CupertinoTheme(
                   data: CupertinoTheme.of(context).copyWith(
-                    // Настраиваем цвет текста
                     textTheme: CupertinoTextThemeData(
                       dateTimePickerTextStyle: TextStyle(
-                        color: AppTheme
-                            .secondary, // Установите желаемый цвет текста
+                        color: AppTheme.secondary,
                         fontSize: 20,
                       ),
                     ),
@@ -103,8 +110,7 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
                 child: const Text(
                   'Done',
                   style: TextStyle(
-                    color:
-                        Colors.green, // Установите желаемый цвет текста кнопки
+                    color: Colors.green,
                     fontSize: 18,
                   ),
                 ),
@@ -168,7 +174,6 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
   }
 
   Widget _buildLevelSelector() {
-    // Создаем список уровней от 1 до 10
     List<int> levels = List<int>.generate(5, (index) => index + 1);
 
     return Container(
@@ -236,8 +241,7 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
       filled: true,
       fillColor: AppTheme.surface,
       hintStyle: const TextStyle(
-          color: AppTheme.secondary,
-          fontWeight: FontWeight.w400), // Стиль подсказок
+          color: AppTheme.secondary, fontWeight: FontWeight.w400),
       contentPadding:
           const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       border: OutlineInputBorder(
@@ -248,32 +252,22 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
 
     return Scaffold(
       backgroundColor: AppTheme.background,
+      appBar: AppBar(
+        backgroundColor: AppTheme.background,
+        elevation: 0,
+        title: const Text('Edit Operation'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
-              // Заголовок страницы
-              const Row(
-                children: [
-                  Text(
-                    'New Learning',
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.white, // Белый цвет заголовка
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 36),
               // Objective
-
               TextFormField(
                 controller: _objectiveController,
-                style: const TextStyle(
-                    color: Colors.white), // Белый цвет вводимого текста
-                cursorColor: Colors.white, // Белый цвет курсора
+                style: const TextStyle(color: Colors.white),
+                cursorColor: Colors.white,
                 decoration:
                     inputDecoration.copyWith(hintText: 'Learning objective'),
                 validator: (value) {
@@ -283,15 +277,11 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
                   return null;
                 },
               ),
-
-              // Subject
               const SizedBox(height: 16),
-
+              // Subject
               _buildSubjectSelector(),
-
               const SizedBox(height: 16),
               // Topic
-
               TextFormField(
                 controller: _topicController,
                 style: const TextStyle(color: Colors.white),
@@ -305,7 +295,7 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
                   return null;
                 },
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
               // Date
               GestureDetector(
                 onTap: _pickDate,
@@ -343,13 +333,9 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
               ),
               const SizedBox(height: 16),
               // Level
-
               _buildLevelSelector(),
-
               const SizedBox(height: 16),
               // Description
-
-              const SizedBox(height: 8),
               TextFormField(
                 controller: _descriptionController,
                 style: const TextStyle(color: Colors.white),
@@ -368,8 +354,8 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
               ElevatedButton(
                 onPressed: _saveOperation,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green, // Цвет фона кнопки
-                  foregroundColor: Colors.white, // Цвет текста кнопки
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   textStyle: const TextStyle(fontSize: 18),
                   shape: RoundedRectangleBorder(
