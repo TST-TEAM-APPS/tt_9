@@ -3,11 +3,11 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tt_9/data/operation.dart';
-import 'package:tt_9/onboarding_view/initial_screen.dart';
-import 'package:tt_9/services/config_service.dart';
-import 'package:tt_9/services/service_locator.dart';
-import 'package:tt_9/timer_view/time_provider/time_provider.dart';
+import 'package:busy_bookseller/data/operation.dart';
+import 'package:busy_bookseller/onboarding_view/initial_screen.dart';
+import 'package:busy_bookseller/services/config_service.dart';
+import 'package:busy_bookseller/services/service_locator.dart';
+import 'package:busy_bookseller/timer_view/time_provider/time_provider.dart';
 
 void main() async {
   await _init();

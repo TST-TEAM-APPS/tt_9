@@ -4,10 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_down_button/pull_down_button.dart';
-import 'package:tt_9/bottom_navigation_bar/bottom_navigation_bar.dart';
-import 'package:tt_9/const/subjects.dart';
-import 'package:tt_9/data/operation.dart';
-import 'package:tt_9/styles/app_theme.dart';
+import 'package:busy_bookseller/bottom_navigation_bar/bottom_navigation_bar.dart';
+import 'package:busy_bookseller/const/subjects.dart';
+import 'package:busy_bookseller/data/operation.dart';
+import 'package:busy_bookseller/styles/app_theme.dart';
 
 class AddNewOperationPage extends StatefulWidget {
   const AddNewOperationPage({super.key});

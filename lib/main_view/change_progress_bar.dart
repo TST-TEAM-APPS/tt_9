@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tt_9/data/operation.dart';
-import 'package:tt_9/styles/app_theme.dart';
+import 'package:busy_bookseller/data/operation.dart';
+import 'package:busy_bookseller/styles/app_theme.dart';
 
 class ChangeProgressPage extends StatefulWidget {
   final Operation operation;

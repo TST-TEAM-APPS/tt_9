@@ -2,8 +2,8 @@ import 'dart:developer';
 import 'package:custom_progressbar/custom_progressbar.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tt_9/onboarding_view/initial_screen.dart';
-import 'package:tt_9/services/mixins/network_mixin.dart';
+import 'package:busy_bookseller/onboarding_view/initial_screen.dart';
+import 'package:busy_bookseller/services/mixins/network_mixin.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 

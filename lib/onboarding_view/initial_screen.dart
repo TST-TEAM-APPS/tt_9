@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:is_first_run/is_first_run.dart';
-import 'package:tt_9/bottom_navigation_bar/bottom_navigation_bar.dart';
-import 'package:tt_9/onboarding_view/onboarding_page.dart';
-import 'package:tt_9/services/mixins/network_mixin.dart';
-import 'package:tt_9/settings_view/privacy_view.dart';
+import 'package:busy_bookseller/bottom_navigation_bar/bottom_navigation_bar.dart';
+import 'package:busy_bookseller/onboarding_view/onboarding_page.dart';
+import 'package:busy_bookseller/services/mixins/network_mixin.dart';
+import 'package:busy_bookseller/settings_view/privacy_view.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});

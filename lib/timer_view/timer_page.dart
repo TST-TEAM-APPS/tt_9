@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hive/hive.dart';
-import 'package:tt_9/data/operation.dart';
-import 'package:tt_9/main_view/add_new_opperation_page.dart';
-import 'package:tt_9/styles/app_theme.dart';
-import 'package:tt_9/timer_view/time_provider/time_provider.dart';
+import 'package:busy_bookseller/data/operation.dart';
+import 'package:busy_bookseller/main_view/add_new_opperation_page.dart';
+import 'package:busy_bookseller/styles/app_theme.dart';
+import 'package:busy_bookseller/timer_view/time_provider/time_provider.dart';
 
 class TimerPage extends StatefulWidget {
   const TimerPage({super.key});

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tt_9/folder_view/folder_page.dart';
-import 'package:tt_9/main_view/main_fill_page.dart';
-import 'package:tt_9/settings_view/settings_page.dart';
-import 'package:tt_9/styles/app_theme.dart';
-import 'package:tt_9/timer_view/time_provider/time_provider.dart';
-import 'package:tt_9/timer_view/timer_page.dart';
+import 'package:busy_bookseller/folder_view/folder_page.dart';
+import 'package:busy_bookseller/main_view/main_fill_page.dart';
+import 'package:busy_bookseller/settings_view/settings_page.dart';
+import 'package:busy_bookseller/styles/app_theme.dart';
+import 'package:busy_bookseller/timer_view/time_provider/time_provider.dart';
+import 'package:busy_bookseller/timer_view/timer_page.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar({super.key});

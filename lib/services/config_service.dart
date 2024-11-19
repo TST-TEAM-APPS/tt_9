@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flagsmith/flagsmith.dart';
-import 'package:tt_9/models/config.dart';
+import 'package:busy_bookseller/models/config.dart';
 
 
 class ConfigService {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tt_9/styles/app_theme.dart';
+import 'package:busy_bookseller/styles/app_theme.dart';
 
 class LearningObjectiveCard extends StatelessWidget {
   final int learningObjects;

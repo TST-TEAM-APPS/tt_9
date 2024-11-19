@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:in_app_review/in_app_review.dart';
-import 'package:tt_9/services/mixins/config_mixin.dart';
-import 'package:tt_9/styles/app_theme.dart';
+import 'package:busy_bookseller/services/mixins/config_mixin.dart';
+import 'package:busy_bookseller/styles/app_theme.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class SettingsPage extends StatefulWidget {

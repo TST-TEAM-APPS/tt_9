@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:hive/hive.dart';
-import 'package:tt_9/data/operation.dart';
-import 'package:tt_9/styles/app_theme.dart';
-import 'package:tt_9/widgets/operation_card.dart';
+import 'package:busy_bookseller/data/operation.dart';
+import 'package:busy_bookseller/styles/app_theme.dart';
+import 'package:busy_bookseller/widgets/operation_card.dart';
 
 class SubjectOperationsPage extends StatefulWidget {
   final String subject;

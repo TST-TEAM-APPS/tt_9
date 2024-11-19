@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tt_9/bottom_navigation_bar/bottom_navigation_bar.dart';
-import 'package:tt_9/styles/app_theme.dart';
+import 'package:busy_bookseller/bottom_navigation_bar/bottom_navigation_bar.dart';
+import 'package:busy_bookseller/styles/app_theme.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override

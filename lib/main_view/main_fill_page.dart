@@ -2,11 +2,11 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:tt_9/data/operation.dart';
-import 'package:tt_9/main_view/add_new_opperation_page.dart';
-import 'package:tt_9/styles/app_theme.dart';
-import 'package:tt_9/widgets/learning_objective_card.dart';
-import 'package:tt_9/widgets/operation_card.dart';
+import 'package:busy_bookseller/data/operation.dart';
+import 'package:busy_bookseller/main_view/add_new_opperation_page.dart';
+import 'package:busy_bookseller/styles/app_theme.dart';
+import 'package:busy_bookseller/widgets/learning_objective_card.dart';
+import 'package:busy_bookseller/widgets/operation_card.dart';
 
 class MainFillPage extends StatefulWidget {
   const MainFillPage({super.key});

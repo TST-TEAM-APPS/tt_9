@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tt_9/const/subjects.dart';
-import 'package:tt_9/folder_view/subject_operation_page.dart';
-import 'package:tt_9/styles/app_theme.dart';
+import 'package:busy_bookseller/const/subjects.dart';
+import 'package:busy_bookseller/folder_view/subject_operation_page.dart';
+import 'package:busy_bookseller/styles/app_theme.dart';
 
 class FolderPage extends StatefulWidget {
   const FolderPage({super.key});

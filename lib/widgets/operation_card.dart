@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pull_down_button/pull_down_button.dart';
-import 'package:tt_9/const/subjects.dart';
-import 'package:tt_9/data/operation.dart';
-import 'package:tt_9/main_view/change_progress_bar.dart';
-import 'package:tt_9/main_view/edit_operation_page.dart';
-import 'package:tt_9/styles/app_theme.dart';
+import 'package:busy_bookseller/const/subjects.dart';
+import 'package:busy_bookseller/data/operation.dart';
+import 'package:busy_bookseller/main_view/change_progress_bar.dart';
+import 'package:busy_bookseller/main_view/edit_operation_page.dart';
+import 'package:busy_bookseller/styles/app_theme.dart';
 
 class OperationCard extends StatefulWidget {
   final Operation operation;

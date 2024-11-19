@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:get_ip_address/get_ip_address.dart';
 
 import 'package:http/http.dart';
-import 'package:tt_9/models/network.dart';
+import 'package:busy_bookseller/models/network.dart';
 
 class NetworkService {
   static const String _url = 'https://pro.ip-api.com/json/';
