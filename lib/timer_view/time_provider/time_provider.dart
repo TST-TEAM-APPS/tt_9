@@ -4,15 +4,25 @@ import 'package:flutter/material.dart';
 class TimerProvider extends ChangeNotifier {
   Timer? _timer;
   Duration _remainingTime = const Duration(minutes: 25);
-  final Duration _totalTime = const Duration(minutes: 25);
+  Duration _totalTime = const Duration(minutes: 25); // Убрали final
   bool _isRunning = false;
   bool _isPaused = false;
   double _progress = 0.0;
 
   Duration get remainingTime => _remainingTime;
+  Duration get totalTime => _totalTime; // Добавили getter для totalTime
   bool get isRunning => _isRunning;
   bool get isPaused => _isPaused;
   double get progress => _progress;
+
+  void setTotalTime(Duration duration) {
+    if (!_isRunning) {
+      _totalTime = duration;
+      _remainingTime = duration;
+      _progress = 0.0; // Сбрасываем прогресс
+      notifyListeners();
+    }
+  }
 
   void startTimer() {
     if (_isRunning) return;

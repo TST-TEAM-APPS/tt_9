@@ -67,13 +67,13 @@ class _TimerPageState extends State<TimerPage> {
 
     return Container(
       height: double.infinity / 2,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: AppTheme.background,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20), topRight: Radius.circular(20))),
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Center(
@@ -99,7 +99,7 @@ class _TimerPageState extends State<TimerPage> {
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
@@ -131,12 +131,63 @@ class _TimerPageState extends State<TimerPage> {
               Navigator.pop(context);
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           )
         ],
       ),
     );
+  }
+
+  void _selectDuration() async {
+    final timerProvider = Provider.of<TimerProvider>(context, listen: false);
+
+    if (timerProvider.isRunning) {
+      // Не позволяем менять продолжительность во время работы таймера
+      return;
+    }
+
+    Duration? pickedDuration = await showModalBottomSheet<Duration>(
+      context: context,
+      builder: (BuildContext context) {
+        Duration tempDuration = timerProvider.totalTime;
+
+        return Container(
+          height: 250,
+          color: AppTheme.surface,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 190,
+                child: CupertinoTimerPicker(
+                  mode: CupertinoTimerPickerMode.hms,
+                  initialTimerDuration: tempDuration,
+                  onTimerDurationChanged: (Duration newDuration) {
+                    tempDuration = newDuration;
+                  },
+                ),
+              ),
+              CupertinoButton(
+                child: Text(
+                  'Done',
+                  style: TextStyle(
+                    color: AppTheme.secondary,
+                    fontSize: 20,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop(tempDuration);
+                },
+              )
+            ],
+          ),
+        );
+      },
+    );
+
+    if (pickedDuration != null) {
+      timerProvider.setTotalTime(pickedDuration);
+    }
   }
 
   void _startTimer() {
@@ -164,17 +215,17 @@ class _TimerPageState extends State<TimerPage> {
       context: context,
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
-          title: Text('Stop timer?'),
-          content: Text('Are you sure you want to stop the timer?'),
+          title: const Text('Stop timer?'),
+          content: const Text('Are you sure you want to stop the timer?'),
           actions: [
             CupertinoDialogAction(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop(); // Закрыть диалог без действий
               },
             ),
             CupertinoDialogAction(
-              child: Text('Stop'),
+              child: const Text('Stop'),
               onPressed: () {
                 Provider.of<TimerProvider>(context, listen: false).stopTimer();
                 Navigator.of(context).pop(); // Закрыть диалог
@@ -218,8 +269,14 @@ class _TimerPageState extends State<TimerPage> {
         backgroundColor: Colors.transparent,
         body: Consumer<TimerProvider>(
           builder: (context, timerProvider, child) {
-            String timeText =
-                '${timerProvider.remainingTime.inMinutes.toString().padLeft(2, '0')}:${(timerProvider.remainingTime.inSeconds % 60).toString().padLeft(2, '0')}';
+            String timeText;
+            if (timerProvider.isRunning) {
+              timeText =
+                  '${timerProvider.remainingTime.inMinutes.toString().padLeft(2, '0')}:${(timerProvider.remainingTime.inSeconds % 60).toString().padLeft(2, '0')}';
+            } else {
+              timeText =
+                  '${timerProvider.totalTime.inMinutes.toString().padLeft(2, '0')}:${(timerProvider.totalTime.inSeconds % 60).toString().padLeft(2, '0')}';
+            }
 
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -249,10 +306,14 @@ class _TimerPageState extends State<TimerPage> {
                         progressColor: AppTheme.onPrimary,
                       ),
                       child: Center(
-                        child: Text(
-                          timeText,
-                          style: AppTheme.displayLarge
-                              .copyWith(color: AppTheme.onPrimary),
+                        child: GestureDetector(
+                          onTap:
+                              timerProvider.isRunning ? null : _selectDuration,
+                          child: Text(
+                            timeText,
+                            style: AppTheme.displayLarge
+                                .copyWith(color: AppTheme.onPrimary),
+                          ),
                         ),
                       ),
                     ),
@@ -269,7 +330,7 @@ class _TimerPageState extends State<TimerPage> {
 
   Widget _buildControlButtons(TimerProvider timerProvider) {
     if (!timerProvider.isRunning) {
-      return Container(
+      return SizedBox(
         width: 300,
         child: CupertinoButton(
           borderRadius: BorderRadius.circular(100),
@@ -293,7 +354,7 @@ class _TimerPageState extends State<TimerPage> {
               BorderRadius.circular(100), // Закругление углов, если нужно
         ),
         child: CupertinoButton(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
               horizontal: 16, vertical: 8), // Настройка отступов
           child: Text('Pause',
               style: AppTheme.bodyLarge.copyWith(color: AppTheme.onPrimary)),
