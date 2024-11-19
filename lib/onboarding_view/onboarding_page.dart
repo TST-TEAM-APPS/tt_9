@@ -32,7 +32,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void _nextPage() {
     if (_currentIndex < _pages.length - 1) {
       _pageController.nextPage(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
     } else {
@@ -41,7 +41,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                CustomNavigationBar()), // Replace with your next screen
+                const CustomNavigationBar()), // Replace with your next screen
       );
     }
   }
@@ -65,16 +65,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Spacer(),
+                const Spacer(),
                 Image.asset(
                   page['imagePath']!,
                   height: 250,
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 Text(
                   page['title']!,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -83,30 +83,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Text(
                   page['title2']!,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                     color: AppTheme.primary,
                   ),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Text(
                   page['subtitle']!,
                   textAlign: TextAlign.center,
                   style:
                       AppTheme.bodyMedium.copyWith(color: AppTheme.secondary),
                 ),
-                Spacer(),
+                const Spacer(),
                 CupertinoButton(
                   color: Colors.redAccent,
                   borderRadius: BorderRadius.circular(24),
                   onPressed: _nextPage,
-                  child: Text(
+                  child: const Text(
                     'Continue',
                     style: AppTheme.bodyLarge,
                   ),
                 ),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
               ],
             ),
           );

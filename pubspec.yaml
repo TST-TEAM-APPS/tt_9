@@ -20,12 +20,35 @@ dependencies:
   pull_down_button: ^0.10.2
   flutter_svg: ^2.0.14
   provider: ^6.0.0
+  flagsmith: ^6.0.0
+  flutter_native_splash: ^2.4.3
+  flutter_launcher_icons: ^0.14.1
+  get_ip_address: ^0.0.7
+  http: ^1.2.2
+  get_it: ^8.0.2
+  webview_flutter_wkwebview: ^3.16.2
+  webview_flutter: ^4.10.0
+  custom_progressbar: ^0.0.2
+  shared_preferences: ^2.3.3
+  in_app_review: ^2.0.9
+  is_first_run: ^1.0.0
   
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  remove_alpha_ios: true
+
+flutter_native_splash:
+  color: "#222224"
+  image: assets/images/icon.png
 
 flutter:
   uses-material-design: true
