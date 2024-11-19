@@ -4,11 +4,11 @@ workflows:
     instance_type: mac_mini_m1
     max_build_duration: 45
     integrations:
-      app_store_connect: newMuscleAPI18M
+      app_store_connect: key4APIbooksellertt9
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.musclapp18pp.v2fitnetren
+        bundle_identifier: com.bundsellrbook.er88tt
       flutter: stable
       xcode: latest
       cocoapods: default

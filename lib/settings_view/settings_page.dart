@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:tt_9/services/mixins/config_mixin.dart';
 import 'package:tt_9/styles/app_theme.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -10,7 +14,7 @@ class SettingsPage extends StatefulWidget {
   State<SettingsPage> createState() => _SettingsPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _SettingsPageState extends State<SettingsPage> with ConfigMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +35,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             CupertinoButton(
               padding: EdgeInsets.zero,
-              onPressed: () {},
+              onPressed: () async => await InAppReview.instance.requestReview(),
               minSize: 1,
               child: ListTile(
                 leading: SvgPicture.asset(
@@ -56,7 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             CupertinoButton(
               padding: EdgeInsets.zero,
-              onPressed: () {},
+              onPressed: () => launchUrlString(termsLink),
               minSize: 1,
               child: ListTile(
                 leading: SvgPicture.asset(
@@ -81,7 +85,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             CupertinoButton(
               padding: EdgeInsets.zero,
-              onPressed: () {},
+              onPressed: () => launchUrlString(privacyLink),
               minSize: 1,
               child: ListTile(
                 leading: SvgPicture.asset(
@@ -106,7 +110,12 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             CupertinoButton(
               padding: EdgeInsets.zero,
-              onPressed: () {},
+              onPressed: () async => await FlutterEmailSender.send(
+                Email(
+                  recipients: ['ferjoao383@gmail.com'],
+                  subject: 'To support of "Busy Bookseller Compass"',
+                ),
+              ),
               minSize: 1,
               child: ListTile(
                 leading: SvgPicture.asset(
@@ -114,7 +123,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   color: Colors.white,
                 ),
                 title: const Text(
-                  'Support page ',
+                  'Support',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
