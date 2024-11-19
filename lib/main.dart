@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tt_9/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:tt_9/data/operation.dart';
+import 'package:tt_9/onboarding_view/onboarding_page.dart';
 import 'package:tt_9/timer_view/time_provider/time_provider.dart';
 
 void main() async {
@@ -27,7 +27,7 @@ class MainApp extends StatelessWidget {
         fontFamily: 'SFProText',
       ),
       debugShowCheckedModeBanner: false,
-      home: const CustomNavigationBar(),
+      home: OnboardingScreen(),
     );
   }
 }

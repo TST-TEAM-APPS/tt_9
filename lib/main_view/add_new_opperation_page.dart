@@ -20,17 +20,18 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _objectiveController = TextEditingController();
-  final TextEditingController _subjectController = TextEditingController();
   final TextEditingController _topicController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
   DateTime? _selectedDate;
   int _level = 1;
 
+  // Добавляем переменную для хранения выбранного предмета
+  String? _selectedSubject;
+
   @override
   void dispose() {
     _objectiveController.dispose();
-    _subjectController.dispose();
     _topicController.dispose();
     _descriptionController.dispose();
     super.dispose();
@@ -48,9 +49,9 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
 
       final operation = Operation(
         objective: _objectiveController.text,
-        subject: _subjectController.text,
+        subject: _selectedSubject!, // Используем выбранный предмет
         topic: _topicController.text,
-        date: _selectedDate!, // Безопасно использовать !, так как уже проверили
+        date: _selectedDate!,
         level: _level,
         description: _descriptionController.text,
       );
@@ -58,8 +59,10 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
       final operationBox = Hive.box<Operation>('operations');
       await operationBox.add(operation);
 
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const CustomNavigationBar()));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const CustomNavigationBar()),
+      );
     }
   }
 
@@ -80,8 +83,7 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
                     // Настраиваем цвет текста
                     textTheme: const CupertinoTextThemeData(
                       dateTimePickerTextStyle: TextStyle(
-                        color: AppTheme
-                            .secondary, // Установите желаемый цвет текста
+                        color: AppTheme.secondary, // Цвет текста
                         fontSize: 20,
                       ),
                     ),
@@ -103,8 +105,7 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
                 child: const Text(
                   'Done',
                   style: TextStyle(
-                    color:
-                        Colors.green, // Установите желаемый цвет текста кнопки
+                    color: Colors.green, // Цвет текста кнопки
                     fontSize: 18,
                   ),
                 ),
@@ -120,55 +121,81 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
   }
 
   Widget _buildSubjectSelector() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 5.0),
-      decoration: BoxDecoration(
-        color: AppTheme.surface,
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // Отображение выбранного предмета
-          Text(
-            'Subject: ${_subjectController.text.isEmpty ? 'Select Subject' : _subjectController.text}',
-            style: AppTheme.bodyLarge.copyWith(color: AppTheme.secondary),
-          ),
-          // PullDownButton для выбора предмета
-          PullDownButton(
-            itemBuilder: (context) => subjects.map((subject) {
-              return PullDownMenuItem(
-                itemTheme: const PullDownMenuItemTheme(),
-                iconWidget: SvgPicture.asset(
-                  getSubjectIcon(subject),
-                  color: AppTheme.secondary,
-                ),
-                title: subject,
-                onTap: () {
-                  _updateSubject(subject);
-                },
-              );
-            }).toList(),
-            buttonBuilder: (context, showMenu) => CupertinoButton(
-              onPressed: showMenu,
-              padding: EdgeInsets.zero,
-              child: const Row(
+    return FormField<String>(
+      validator: (value) {
+        if (_selectedSubject == null || _selectedSubject!.isEmpty) {
+          return 'Please select a subject';
+        }
+        return null;
+      },
+      builder: (FormFieldState<String> state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 5.0),
+              decoration: BoxDecoration(
+                color: AppTheme.surface,
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
-                    Icons.arrow_downward,
-                    color: AppTheme.primary,
-                  )
+                  // Отображение выбранного предмета
+                  Text(
+                    'Subject: ${_selectedSubject ?? 'Select Subject'}',
+                    style:
+                        AppTheme.bodyLarge.copyWith(color: AppTheme.secondary),
+                  ),
+                  // PullDownButton для выбора предмета
+                  PullDownButton(
+                    itemBuilder: (context) => subjects.map((subject) {
+                      return PullDownMenuItem(
+                        itemTheme: const PullDownMenuItemTheme(),
+                        iconWidget: SvgPicture.asset(
+                          getSubjectIcon(subject),
+                          color: const Color.fromARGB(255, 141, 141, 141),
+                        ),
+                        title: subject,
+                        onTap: () {
+                          _updateSubject(subject);
+                          state.didChange(subject); // Обновляем состояние формы
+                        },
+                      );
+                    }).toList(),
+                    buttonBuilder: (context, showMenu) => CupertinoButton(
+                      onPressed: showMenu,
+                      padding: EdgeInsets.zero,
+                      child: const Row(
+                        children: [
+                          Icon(
+                            Icons.arrow_downward,
+                            color: AppTheme.primary,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-          ),
-        ],
-      ),
+            if (state.hasError)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0, left: 16.0),
+                child: Text(
+                  state.errorText!,
+                  style: const TextStyle(color: Colors.red, fontSize: 12),
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 
   Widget _buildLevelSelector() {
-    // Создаем список уровней от 1 до 10
+    // Создаем список уровней от 1 до 5
     List<int> levels = List<int>.generate(5, (index) => index + 1);
 
     return Container(
@@ -220,7 +247,7 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
 
   void _updateSubject(String subject) {
     setState(() {
-      _subjectController.text = subject;
+      _selectedSubject = subject;
     });
   }
 
@@ -268,7 +295,6 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
               ),
               const SizedBox(height: 36),
               // Objective
-
               TextFormField(
                 controller: _objectiveController,
                 style: const TextStyle(
@@ -283,15 +309,11 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
                   return null;
                 },
               ),
-
               // Subject
               const SizedBox(height: 16),
-
               _buildSubjectSelector(),
-
               const SizedBox(height: 16),
               // Topic
-
               TextFormField(
                 controller: _topicController,
                 style: const TextStyle(color: Colors.white),
@@ -343,12 +365,9 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
               ),
               const SizedBox(height: 16),
               // Level
-
               _buildLevelSelector(),
-
               const SizedBox(height: 16),
               // Description
-
               const SizedBox(height: 8),
               TextFormField(
                 controller: _descriptionController,

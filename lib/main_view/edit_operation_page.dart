@@ -252,9 +252,12 @@ class _EditOperationPageState extends State<EditOperationPage> {
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: AppTheme.secondary),
         backgroundColor: AppTheme.background,
-        elevation: 0,
-        title: const Text('Edit Operation'),
+        title: Text(
+          'Edit learning',
+          style: AppTheme.displayMedium.copyWith(color: AppTheme.secondary),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
