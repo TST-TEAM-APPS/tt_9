@@ -13,8 +13,7 @@ class OperationCard extends StatefulWidget {
   final VoidCallback onUpdate; // Добавляем колбэк для обновления списка
 
   const OperationCard(
-      {Key? key, required this.operation, required this.onUpdate})
-      : super(key: key);
+      {super.key, required this.operation, required this.onUpdate});
 
   @override
   _OperationCardState createState() => _OperationCardState();
@@ -110,7 +109,7 @@ class _OperationCardState extends State<OperationCard> {
                   buttonBuilder: (context, showMenu) => CupertinoButton(
                     onPressed: showMenu,
                     padding: EdgeInsets.zero,
-                    child: Icon(
+                    child: const Icon(
                       Icons.more_vert,
                       color: AppTheme.primary,
                     ),
@@ -139,7 +138,7 @@ class _OperationCardState extends State<OperationCard> {
               style: AppTheme.bodyMedium.copyWith(color: AppTheme.secondary),
             ),
             const SizedBox(height: 16),
-            Divider(
+            const Divider(
               height: 1,
               color: AppTheme.surface2,
             ),

@@ -5,8 +5,7 @@ import 'package:tt_9/styles/app_theme.dart';
 class ChangeProgressPage extends StatefulWidget {
   final Operation operation;
 
-  const ChangeProgressPage({Key? key, required this.operation})
-      : super(key: key);
+  const ChangeProgressPage({super.key, required this.operation});
 
   @override
   _ChangeProgressPageState createState() => _ChangeProgressPageState();

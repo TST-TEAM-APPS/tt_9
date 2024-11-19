@@ -59,7 +59,7 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
       await operationBox.add(operation);
 
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => CustomNavigationBar()));
+          MaterialPageRoute(builder: (context) => const CustomNavigationBar()));
     }
   }
 
@@ -78,7 +78,7 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
                 child: CupertinoTheme(
                   data: CupertinoTheme.of(context).copyWith(
                     // Настраиваем цвет текста
-                    textTheme: CupertinoTextThemeData(
+                    textTheme: const CupertinoTextThemeData(
                       dateTimePickerTextStyle: TextStyle(
                         color: AppTheme
                             .secondary, // Установите желаемый цвет текста
@@ -190,7 +190,7 @@ class _AddNewOperationPageState extends State<AddNewOperationPage> {
             itemBuilder: (context) => levels.map((level) {
               return PullDownMenuItem(
                 itemTheme: const PullDownMenuItemTheme(),
-                iconWidget: Icon(
+                iconWidget: const Icon(
                   Icons.star,
                   color: AppTheme.secondary,
                 ),

@@ -10,8 +10,7 @@ import 'package:intl/intl.dart';
 class EditOperationPage extends StatefulWidget {
   final Operation operation;
 
-  const EditOperationPage({Key? key, required this.operation})
-      : super(key: key);
+  const EditOperationPage({super.key, required this.operation});
 
   @override
   _EditOperationPageState createState() => _EditOperationPageState();
@@ -86,7 +85,7 @@ class _EditOperationPageState extends State<EditOperationPage> {
                 height: 190,
                 child: CupertinoTheme(
                   data: CupertinoTheme.of(context).copyWith(
-                    textTheme: CupertinoTextThemeData(
+                    textTheme: const CupertinoTextThemeData(
                       dateTimePickerTextStyle: TextStyle(
                         color: AppTheme.secondary,
                         fontSize: 20,
@@ -195,7 +194,7 @@ class _EditOperationPageState extends State<EditOperationPage> {
             itemBuilder: (context) => levels.map((level) {
               return PullDownMenuItem(
                 itemTheme: const PullDownMenuItemTheme(),
-                iconWidget: Icon(
+                iconWidget: const Icon(
                   Icons.star,
                   color: AppTheme.secondary,
                 ),

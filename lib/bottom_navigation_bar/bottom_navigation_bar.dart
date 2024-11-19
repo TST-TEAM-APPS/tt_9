@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tt_9/folder_view/folder_page.dart';
 import 'package:tt_9/main_view/main_fill_page.dart';
 import 'package:tt_9/styles/app_theme.dart';
+import 'package:tt_9/timer_view/time_provider/time_provider.dart';
+import 'package:tt_9/timer_view/timer_page.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar({super.key});
@@ -15,7 +19,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
 
   final List<Widget> _pages = [
     const MainFillPage(),
-    const MainFillPage(),
+    const FolderPage(),
     const MainFillPage(),
   ];
 
@@ -63,13 +67,37 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           Positioned(
             bottom: 50,
             right: 1,
-            child: Container(
-              height:
-                  66, // Устанавливаем высоту в зависимости от навигационной панели
-              width: 100,
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 8, 36, 97),
-                  shape: BoxShape.circle),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const TimerPage()));
+              },
+              child: Consumer<TimerProvider>(
+                builder: (context, timerProvider, child) {
+                  return Container(
+                    height: 66,
+                    width: 100,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 8, 36, 97),
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage(
+                            'assets/images/boliviainteligente-BqQikUnYbWE-unsplash 1.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        timerProvider.isRunning
+                            ? '${timerProvider.remainingTime.inMinutes.toString().padLeft(2, '0')}:${(timerProvider.remainingTime.inSeconds % 60).toString().padLeft(2, '0')}'
+                            : '25',
+                        style: AppTheme.displayMedium
+                            .copyWith(color: AppTheme.onPrimary),
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],

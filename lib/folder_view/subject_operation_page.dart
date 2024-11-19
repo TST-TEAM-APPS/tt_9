@@ -1,21 +1,21 @@
-import 'package:easy_date_timeline/easy_date_timeline.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:hive/hive.dart';
 import 'package:tt_9/data/operation.dart';
-import 'package:tt_9/main_view/add_new_opperation_page.dart';
 import 'package:tt_9/styles/app_theme.dart';
-import 'package:tt_9/widgets/learning_objective_card.dart';
 import 'package:tt_9/widgets/operation_card.dart';
 
-class MainFillPage extends StatefulWidget {
-  const MainFillPage({super.key});
+class SubjectOperationsPage extends StatefulWidget {
+  final String subject;
+
+  const SubjectOperationsPage({Key? key, required this.subject})
+      : super(key: key);
 
   @override
-  State<MainFillPage> createState() => _MainFillPageState();
+  _SubjectOperationsPageState createState() => _SubjectOperationsPageState();
 }
 
-class _MainFillPageState extends State<MainFillPage> {
+class _SubjectOperationsPageState extends State<SubjectOperationsPage> {
   final _controller = EasyInfiniteDateTimelineController();
   DateTime _selectedDate = DateTime.now();
   final DateTime _firstDate = DateTime(2020);
@@ -32,7 +32,10 @@ class _MainFillPageState extends State<MainFillPage> {
   void _loadOperations() {
     final operationBox = Hive.box<Operation>('operations');
     setState(() {
-      _operations = operationBox.values.toList();
+      // Фильтруем операции по предмету
+      _operations = operationBox.values
+          .where((operation) => operation.subject == widget.subject)
+          .toList();
     });
   }
 
@@ -50,47 +53,19 @@ class _MainFillPageState extends State<MainFillPage> {
 
     return Scaffold(
       backgroundColor: AppTheme.background,
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: AppTheme.secondary),
+        backgroundColor: AppTheme.background,
+        title: Text(
+          widget.subject,
+          style: AppTheme.displayMedium.copyWith(color: AppTheme.secondary),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             children: [
-              // Верхняя часть с заголовком и кнопкой добавления
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Learning',
-                    style: AppTheme.displayMedium
-                        .copyWith(color: AppTheme.secondary),
-                  ),
-                  ClipOval(
-                    child: CupertinoButton(
-                      padding:
-                          EdgeInsets.zero, // Убирает отступы для точной формы
-                      color: AppTheme.primary,
-                      onPressed: () async {
-                        bool? result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AddNewOperationPage(),
-                          ),
-                        );
-                        if (result == true) {
-                          _loadOperations();
-                        }
-                      },
-                      child: const SizedBox(
-                        width: 50, // Задайте ширину и высоту для круглой формы
-                        height: 50,
-                        child: Center(
-                          child: Text('+'),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
               // Таймлайн с датами
               EasyInfiniteDateTimeLine(
                 showTimelineHeader: false,
@@ -107,8 +82,7 @@ class _MainFillPageState extends State<MainFillPage> {
                   borderColor: Colors.transparent,
                   width: 50,
                   height: 60,
-                  dayStructure: DayStructure
-                      .dayStrDayNum, // Дни недели сверху, числа снизу
+                  dayStructure: DayStructure.dayStrDayNum,
                   activeDayStyle: DayStyle(
                     decoration: BoxDecoration(
                         color: AppTheme.primary,
@@ -161,26 +135,14 @@ class _MainFillPageState extends State<MainFillPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              LearningObjectiveCard(learningObjects: _operations.length),
-              const SizedBox(height: 16),
               // Список операций
               Expanded(
                 child: operationsForSelectedDate.isEmpty
                     ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              ''' There's no records here''',
-                              style: AppTheme.displayMedium
-                                  .copyWith(color: Colors.white),
-                            ),
-                            Text(
-                              ''' Press «+» to add a new learning ''',
-                              style: AppTheme.bodyMedium
-                                  .copyWith(color: AppTheme.secondary),
-                            ),
-                          ],
+                        child: Text(
+                          'No operations for selected date',
+                          style:
+                              AppTheme.bodyLarge.copyWith(color: Colors.white),
                         ),
                       )
                     : ListView.builder(
@@ -188,8 +150,7 @@ class _MainFillPageState extends State<MainFillPage> {
                         itemBuilder: (context, index) {
                           return OperationCard(
                             operation: operationsForSelectedDate[index],
-                            onUpdate:
-                                _loadOperations, // Передаем колбэк обновления
+                            onUpdate: _loadOperations,
                           );
                         },
                       ),

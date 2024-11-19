@@ -5,29 +5,29 @@ class LearningObjectiveCard extends StatelessWidget {
   final int learningObjects;
 
   const LearningObjectiveCard({
-    Key? key,
+    super.key,
     required this.learningObjects,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [Color(0xFF301BA6), Color(0xff13094C)],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
         borderRadius: BorderRadius.circular(20), // Закругленные углы
       ),
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Row(
         children: [
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Hello!',
                   style: TextStyle(
                     fontSize: 32,
@@ -35,24 +35,24 @@ class LearningObjectiveCard extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 RichText(
                   text: TextSpan(
                     text: 'You now have \n',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 13,
                       color: AppTheme.secondary,
                     ),
                     children: [
                       TextSpan(
                         text: '$learningObjects ',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.redAccent,
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: 'learning objectives',
                         style: TextStyle(
                           fontSize: 16,
@@ -65,7 +65,7 @@ class LearningObjectiveCard extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Image.asset(
