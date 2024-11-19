@@ -21,84 +21,112 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ListTile(
-              leading: SvgPicture.asset(
-                'assets/images/Vector (7).svg',
-                color: Colors.white,
-              ),
-              title: Text(
-                'Rate app ',
-                style: const TextStyle(
+            const SizedBox(height: 20),
+            Text(
+              'Settings',
+              style: AppTheme.displayMedium.copyWith(color: AppTheme.secondary),
+            ),
+            const SizedBox(
+              height: 36,
+            ),
+            CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed: () {},
+              minSize: 1,
+              child: ListTile(
+                leading: SvgPicture.asset(
+                  'assets/images/Vector (7).svg',
                   color: Colors.white,
-                  fontSize: 16,
+                ),
+                title: const Text(
+                  'Rate app ',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.chevron_right,
+                  color: Colors.redAccent,
                 ),
               ),
-              trailing: const Icon(
-                Icons.chevron_right,
-                color: Colors.redAccent,
-              ),
             ),
-            Divider(
+            const Divider(
               color: AppTheme.surface,
             ),
-            ListTile(
-              leading: SvgPicture.asset(
-                'assets/images/Vector (8).svg',
-                color: Colors.white,
-              ),
-              title: Text(
-                'Term of use ',
-                style: const TextStyle(
+            CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed: () {},
+              minSize: 1,
+              child: ListTile(
+                leading: SvgPicture.asset(
+                  'assets/images/Vector (8).svg',
                   color: Colors.white,
-                  fontSize: 16,
+                ),
+                title: const Text(
+                  'Term of use ',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.chevron_right,
+                  color: Colors.redAccent,
                 ),
               ),
-              trailing: const Icon(
-                Icons.chevron_right,
-                color: Colors.redAccent,
-              ),
             ),
-            Divider(
+            const Divider(
               color: AppTheme.surface,
             ),
-            ListTile(
-              leading: SvgPicture.asset(
-                'assets/images/Vector (9).svg',
-                color: Colors.white,
-              ),
-              title: Text(
-                'Privacy Policy ',
-                style: const TextStyle(
+            CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed: () {},
+              minSize: 1,
+              child: ListTile(
+                leading: SvgPicture.asset(
+                  'assets/images/Vector (9).svg',
                   color: Colors.white,
-                  fontSize: 16,
+                ),
+                title: const Text(
+                  'Privacy Policy ',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.chevron_right,
+                  color: Colors.redAccent,
                 ),
               ),
-              trailing: const Icon(
-                Icons.chevron_right,
-                color: Colors.redAccent,
-              ),
             ),
-            Divider(
+            const Divider(
               color: AppTheme.surface,
             ),
-            ListTile(
-              leading: SvgPicture.asset(
-                'assets/images/Vector (10).svg',
-                color: Colors.white,
-              ),
-              title: Text(
-                'Support page ',
-                style: const TextStyle(
+            CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed: () {},
+              minSize: 1,
+              child: ListTile(
+                leading: SvgPicture.asset(
+                  'assets/images/Vector (10).svg',
                   color: Colors.white,
-                  fontSize: 16,
+                ),
+                title: const Text(
+                  'Support page ',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.chevron_right,
+                  color: Colors.redAccent,
                 ),
               ),
-              trailing: const Icon(
-                Icons.chevron_right,
-                color: Colors.redAccent,
-              ),
             ),
-            Divider(
+            const Divider(
               color: AppTheme.surface,
             ),
           ],

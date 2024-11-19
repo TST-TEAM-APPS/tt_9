@@ -39,17 +39,29 @@ class _TimerPageState extends State<TimerPage> {
 
     if (operations.isEmpty) {
       return Container(
-        decoration: BoxDecoration(color: AppTheme.background),
+        height: 200,
+        width: double.infinity,
         padding: const EdgeInsets.all(16.0),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(20),
+            topLeft: Radius.circular(20),
+          ),
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+             Text(
               'No tasks available',
-              style: TextStyle(fontSize: 18),
+              style:  Theme.of(context).textTheme.titleMedium,
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 8.0),
-            ElevatedButton(
+            const SizedBox(height: 30),
+            CupertinoButton(
+              padding: EdgeInsets.zero,
+              minSize: 1,
               onPressed: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -68,9 +80,12 @@ class _TimerPageState extends State<TimerPage> {
     return Container(
       height: double.infinity / 2,
       decoration: const BoxDecoration(
-          color: AppTheme.background,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+        color: AppTheme.background,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
       child: Column(
         children: [
           const SizedBox(

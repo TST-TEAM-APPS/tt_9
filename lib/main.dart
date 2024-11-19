@@ -12,7 +12,7 @@ void main() async {
 
   await Hive.openBox<Operation>('operations');
   runApp(ChangeNotifierProvider(
-    child: MainApp(),
+    child: const MainApp(),
     create: (context) => TimerProvider(),
   ));
 }
